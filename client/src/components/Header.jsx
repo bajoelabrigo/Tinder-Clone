@@ -3,7 +3,7 @@ import { Flame, User, LogOut, Menu } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useEffect, useRef, useState } from "react";
 
-const Header = () => {
+export const Header = () => {
   const { authUser, logout } = useAuthStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -143,4 +143,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+

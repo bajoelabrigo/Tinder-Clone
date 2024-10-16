@@ -4,8 +4,9 @@ export const swipeRight = async (req, res) => {
   try {
     const { likedUserId } = req.params;
     const currentUser = await User.findById(req.user.id);
+    const likedUser = await User.findById(likedUserId);
 
-    if (!likedUserId) {
+    if (!likedUser) {
       return res.status(404).json({
         success: false,
         message: "User not found",
@@ -17,12 +18,13 @@ export const swipeRight = async (req, res) => {
       await currentUser.save();
     }
 
-    if (likedUserId.likes.includes(currentUser.id)) {
+    //if the other user already liked us, it's a match, so let's update both users
+    if (likedUser.likes.includes(currentUser.id)) {
       currentUser.matches.push(likedUserId);
-      await currentUser.save();
+      likedUser.matches.push(currentUser.id);
     }
 
-    await Promise.all([await currentUser.save(), await likedUserId.save()]);
+    await Promise.all([await currentUser.save(), await likedUser.save()]);
 
     res.status(200).json({
       success: true,

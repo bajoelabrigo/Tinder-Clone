@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import Header from "../components/Header";
+
 import { useAuthStore } from "../store/useAuthStore";
 import { useUserStore } from "../store/useUserStore";
+import { Header } from "../components/Header";
 
 const ProfilePage = () => {
   const { authUser } = useAuthStore();
@@ -27,7 +28,7 @@ const ProfilePage = () => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onloadend = () => {
         setImage(reader.result);
       };
       reader.readAsDataURL(file);

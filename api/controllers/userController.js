@@ -20,7 +20,7 @@ export const updateProfile = async (req, res) => {
         }
       }
     }
-    const updatedUser = await User.findByIdAndUpdate(req.user._id, updateData, {
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, updatedData, {
       new: true,
     });
     res.status(200).json({
